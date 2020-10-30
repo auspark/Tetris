@@ -29,7 +29,8 @@
     [(BackgroundView *)self.contentView executeKeyEventCode:NSDownArrowFunctionKey];
     }
     else if ([fcstr characterAtIndex:0] == ' '){
-        [(BackgroundView *)self.contentView newSharp];
+//        [(BackgroundView *)self.contentView newSharp];
+        [(BackgroundView *)self.contentView setIsPause:![(BackgroundView *)self.contentView isPause]];
     }
     else{
         [super keyDown:event];

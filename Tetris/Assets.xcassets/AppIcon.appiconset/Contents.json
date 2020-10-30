@@ -3,61 +3,61 @@
     {
       "size" : "16x16",
       "idiom" : "mac",
-      "filename" : "tetris2_16x16.png",
+      "filename" : "tetris4_16x16.png",
       "scale" : "1x"
     },
     {
       "size" : "16x16",
       "idiom" : "mac",
-      "filename" : "tetris2_32x32.png",
+      "filename" : "tetris4_32x32-1.png",
       "scale" : "2x"
     },
     {
       "size" : "32x32",
       "idiom" : "mac",
-      "filename" : "tetris2_32x32-1.png",
+      "filename" : "tetris4_32x32.png",
       "scale" : "1x"
     },
     {
       "size" : "32x32",
       "idiom" : "mac",
-      "filename" : "tetris2_64x64.png",
+      "filename" : "tetris4_64x64.png",
       "scale" : "2x"
     },
     {
       "size" : "128x128",
       "idiom" : "mac",
-      "filename" : "tetris2_128x128.png",
+      "filename" : "tetris4_128x128.png",
       "scale" : "1x"
     },
     {
       "size" : "128x128",
       "idiom" : "mac",
-      "filename" : "tetris2_256x256.png",
+      "filename" : "tetris4_256x256-1.png",
       "scale" : "2x"
     },
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "tetris2_256x256-1.png",
+      "filename" : "tetris4_256x256.png",
       "scale" : "1x"
     },
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "tetris2_512x512.png",
+      "filename" : "tetris4_512x512-1.png",
       "scale" : "2x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "tetris2_512x512-1.png",
+      "filename" : "tetris4_512x512.png",
       "scale" : "1x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "tetris2_1024x1024.png",
+      "filename" : "tetris4_1024x1024.png",
       "scale" : "2x"
     }
   ],

@@ -26,18 +26,22 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     self->isRunning=YES;
+    self.isPause=NO;
     self->xMax=self.frame.size.width/SquareSize-1;//width=400,0-19
     self->yMax=self.frame.size.height/SquareSize-1;//height=500,24-0
     self.sdm=[[SharpDataModel alloc]init];
     [self newSharp];
     [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
         if (self->isRunning) {
-            [self executeKeyEventCode:NSDownArrowFunctionKey];
+            if (!self.isPause) {
+                [self executeKeyEventCode:NSDownArrowFunctionKey];
+            }
         }else{
             [timer invalidate];
         }
     }];
 }
+
 
 -(void)viewDidMoveToWindow{
     for (NSView *v in self.subviews) {
@@ -67,7 +71,9 @@
         self->isRunning=YES;
         [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
             if (self->isRunning) {
-                [self executeKeyEventCode:NSDownArrowFunctionKey];
+                if (!self.isPause) {
+                    [self executeKeyEventCode:NSDownArrowFunctionKey];
+                }
             }else{
                 [timer invalidate];
             }

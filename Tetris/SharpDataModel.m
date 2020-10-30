@@ -8,7 +8,7 @@
 
 #import "SharpDataModel.h"
 
-
+//各种形态变更来源于sharp.xlsx设计
 const static unsigned short modelTypes[][4]={
     {0xe800,0x88c0,0x2e00,0xc440},
     {0xe200,0xc880,0x8e00,0x44c0},
@@ -71,7 +71,7 @@ const static unsigned short modelTypes[][4]={
     }
     unsigned short tc=0;
     for (short i=0; i<4; i++) {
-        if(c&1<<i){
+        if(c & 1<<i){
             tc+=1;
         }
     }

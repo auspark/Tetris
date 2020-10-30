@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) unsigned short x,y;
 @property(nonatomic) SharpDataModel *sdm;
 @property(nonatomic) NSTextField *score;
+@property(nonatomic) BOOL isPause;
+
 
 -(void)newSharp;
 -(void)newGame;
