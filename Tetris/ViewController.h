@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "BackgroundView.h"
 @interface ViewController : NSViewController
 
 

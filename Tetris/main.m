@@ -7,10 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "SharpDataModel.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // Setup code that might create autoreleased objects goes here.
+//        SharpDataModel *sdm = [[SharpDataModel alloc]init];
+//        NSLog(@"%x",[sdm sharp]);
+//        NSLog(@"%d",[sdm row]);
+//        NSLog(@"%x",[sdm col]);
     }
     return NSApplicationMain(argc, argv);
+//    return 0;
 }

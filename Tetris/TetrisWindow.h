@@ -1,22 +1,16 @@
 //
-//  BlockDataModel.h
+//  TetrisWindow.h
 //  Tetris
 //
 //  Created by Jerry.Yang on 2020/10/29.
 //  Copyright © 2020 Jerry.Yang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+#import <Cocoa/Cocoa.h>
+#import "BackgroundView.h"
 NS_ASSUME_NONNULL_BEGIN
 
-
-typedef NS_ENUM(NSUInteger, TetrisBaseUnitType) {
-};
-
-
-
-@interface BlockDataModel : NSObject
+@interface TetrisWindow : NSWindow
 
 @end
 

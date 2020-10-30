@@ -12,8 +12,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     // Do any additional setup after loading the view.
+//    [self test];
 }
 
 
@@ -22,6 +22,19 @@
 
     // Update the view, if already loaded.
 }
+- (IBAction)restartGame:(id)sender {
+    [(BackgroundView *)self.view newGame];
+}
 
+-(void)test{
+    unsigned short s = 0xe800;
+    for (short i=15; i>=0; i--) {
+        if(s & 1<<i){
+            NSLog(@"i:%d = yes",i);
+        }else{
+            NSLog(@"i:%d = NO",i);
+        }
+    }
+}
 
 @end
