@@ -379,6 +379,9 @@
             i-=1;
             self.score.integerValue+=self->xMax+1;
         }
+        else if (self->database[i]==0x0) {
+            break;
+        }
     }
     //计分奖励:一次性消除3行,奖励1行的成绩,4行奖励2行的成绩
     if (c>2) {
