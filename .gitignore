@@ -66,6 +66,7 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+<<<<<<< HEAD
 /DerivedData/JSONEditor/Logs/Build/71EE62BF-2B07-433B-A481-3B4D8148A9A9.xcactivitylog
 /DerivedData/JSONEditor/Logs/Build/07A6246C-A1A6-4AC2-A609-99FF2752E1F3.xcactivitylog
 /DerivedData/JSONEditor/Logs/Build/3D175A2F-9C02-4008-AD16-94D06264DF57.xcactivitylog
@@ -137,3 +138,5 @@ iOSInjectionProject/
 /DerivedData/JSONEditor/Logs/Build/E9576EA4-7D57-4B58-A1DC-F71D3CAE7CB6.xcactivitylog
 /DerivedData/JSONEditor/Logs/Build/45139E52-F70C-438D-947C-3EAB2DDFE4AA.xcactivitylog
 /DerivedData/JSONEditor/Logs/Debug/79CEFB29-14E4-488C-825E-8F83C431B7EA.xcactivitylog
+=======
+>>>>>>> Initial commit
