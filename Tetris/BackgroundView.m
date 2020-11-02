@@ -357,15 +357,21 @@
      1.一次将所有满行都消除,之后再将上边行一行行下移
      2.一次消除一行,上边的行立马全部下移
      */
+    short c=0;
     for (short i=0; i<=self->yMax; i++) {
         if (self->database[i]==0x000fffff) {
+            c++;
             self->database[i]=0x0;
             for (short j=i+1; j<=self->yMax; j++) {
                 self->database[j-1]=self->database[j];
             }
             i-=1;
-            self.score.integerValue+=20;
+            self.score.integerValue+=self->xMax+1;
         }
+    }
+    //计分奖励:一次性消除3行,奖励1行的成绩,4行奖励2行的成绩
+    if (c>2) {
+        self.score.integerValue+=(c-2)*(self->xMax+1);
     }
 }
 
