@@ -240,6 +240,10 @@
     }
 }
 
+/*
+ 在square还没达到最左边的情况下,检查square中每个unit左边是否有障碍物
+ 如果有则不能移动,否则可以移动
+ */
 -(BOOL)canMoveLeft{
     if (self.x>0) {
         BOOL isCanMove=YES;
@@ -266,6 +270,7 @@
     }
 }
 
+//是否可以右移
 -(BOOL)canMoveRight{
     if (self.x+[self.sdm col]<self->xMax){
         BOOL isCanMove=YES;
@@ -284,7 +289,8 @@
     }
     return NO;
 }
-
+//是否可形变
+//主要看形变以后是否与四周其它障碍物冲突,是否超界
 -(BOOL)canChangeSharp{
     BOOL isCanMove=YES;
     [self.sdm next];
@@ -307,6 +313,7 @@
     return isCanMove;
 }
 
+//判断是否可以下降一格
 -(BOOL)canMoveDown{
     if(self.y-[self.sdm row]>0){
         BOOL isCanDown=YES;
@@ -326,6 +333,8 @@
     return NO;
 }
 
+
+// 新建sharp
 -(void)newSharp{
     [self.sdm random];
     self.x=self->xMax/2-[self.sdm col]/2;
@@ -333,6 +342,7 @@
     self.needsDisplay=YES;
 }
 
+// 下降到不能下降的时候,要将square数据添加到数据库中
 -(void)addSharpToDatabase{
     for (short i=15; i>=0; i--) {
         if ([self.sdm sharp] & 1<<i) {
@@ -352,6 +362,7 @@
     }
 }
 
+// 消行
 -(void)eliminate{
     /*
      1.一次将所有满行都消除,之后再将上边行一行行下移
