@@ -10,18 +10,21 @@
 #import "SharpDataModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-
+#define TimerInterval 0.5
 
 @interface BackgroundView : NSView
--(void)executeKeyEventCode:(unsigned short)event;
+-(void)executeKeyDownEventCode:(unsigned short)event;
 @property(nonatomic) unsigned short x,y;
 @property(nonatomic) SharpDataModel *sdm;
 @property(nonatomic) NSTextField *score;
 @property(nonatomic) BOOL isPause;
-
-
+@property(nonatomic) BOOL speedup;
+@property(nonatomic) NSTimeInterval timeInterval;
 -(void)newSharp;
 -(void)newGame;
+
+@property(nonatomic) BOOL isLeftDown;
+@property(nonatomic) BOOL isRightDown;
 
 @end
 

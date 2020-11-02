@@ -25,6 +25,7 @@ int main(int argc, const char * argv[]) {
 //            i++;
 //        }
 //        NSLog(@"count 1:%d",c);
+
     }
     return NSApplicationMain(argc, argv);
 //    return 0;

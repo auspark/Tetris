@@ -17,6 +17,9 @@
     short yMax;
     unsigned int database[25];//0x00 0f ff ff
     BOOL isRunning;
+    NSTimer *mytimer;
+    NSTimer *leftTimer;
+    NSTimer *rightTimer;
     
 }
 @end
@@ -25,23 +28,47 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    self.isLeftDown=NO;
+    self.isRightDown=NO;
     self->isRunning=YES;
+    self.speedup=NO;
     self.isPause=NO;
     self->xMax=self.frame.size.width/SquareSize-1;//width=400,0-19
     self->yMax=self.frame.size.height/SquareSize-1;//height=500,24-0
     self.sdm=[[SharpDataModel alloc]init];
     [self newSharp];
-    [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        if (self->isRunning) {
-            if (!self.isPause) {
-                [self executeKeyEventCode:NSDownArrowFunctionKey];
-            }
-        }else{
-            [timer invalidate];
-        }
-    }];
+    self.timeInterval=0.4;
+    [self startGame:0.4];
 }
 
+-(void)setIsLeftDown:(BOOL)isLeftDown{
+    if (isLeftDown) {
+        [self startMoveLeft:0.1];
+    }else{
+        [self->leftTimer invalidate];
+        self->leftTimer=nil;
+    }
+}
+
+-(void)setIsRightDown:(BOOL)isRightDown{
+    if (isRightDown) {
+        [self startMoveRight:0.1];
+    }else{
+        [self->rightTimer invalidate];
+        self->rightTimer=nil;
+    }
+}
+
+
+-(void)setSpeedup:(BOOL)speedup{
+    _speedup=speedup;
+//    NSLog(@"%@",speedup?@"down":@"up");
+    if (speedup) {
+        [self startGame:0.05];
+    }else{
+        [self startGame:0.4];
+    }
+}
 
 -(void)viewDidMoveToWindow{
     for (NSView *v in self.subviews) {
@@ -50,6 +77,46 @@
             self.score.integerValue=0;
             break;
         }
+    }
+}
+
+-(void)startMoveLeft:(NSTimeInterval)timerInterval{
+    @autoreleasepool {
+        [self->leftTimer invalidate];
+        self->leftTimer=nil;
+        self->leftTimer=[NSTimer scheduledTimerWithTimeInterval:timerInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
+            [self blockMoveLeft];
+        }];
+        [self->leftTimer fire];
+    }
+}
+
+-(void)startMoveRight:(NSTimeInterval)timerInterval{
+    @autoreleasepool {
+        [self->rightTimer invalidate];
+        self->rightTimer=nil;
+        self->rightTimer=[NSTimer scheduledTimerWithTimeInterval:timerInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
+            [self blockMoveRight];
+        }];
+        [self->rightTimer fire];
+    }
+}
+
+
+-(void)startGame:(NSTimeInterval)timeInterval{
+    @autoreleasepool {
+        [self->mytimer invalidate];
+        self->mytimer=nil;
+        self->mytimer=[NSTimer scheduledTimerWithTimeInterval:timeInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
+            if (self->isRunning) {
+                if (!self.isPause) {
+                    [self sharpMoveDown];
+                }
+            }else{
+                [timer invalidate];
+                timer=nil;
+            }
+        }];
     }
 }
 
@@ -69,15 +136,7 @@
     }
     if (!self->isRunning) {
         self->isRunning=YES;
-        [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            if (self->isRunning) {
-                if (!self.isPause) {
-                    [self executeKeyEventCode:NSDownArrowFunctionKey];
-                }
-            }else{
-                [timer invalidate];
-            }
-        }];
+        [self startGame:0.4];
     }
 }
 
@@ -129,7 +188,7 @@
 
 
 #pragma mark - key equilavent
--(void)executeKeyEventCode:(unsigned short)event{
+-(void)executeKeyDownEventCode:(unsigned short)event{
     switch (event) {
         case NSLeftArrowFunctionKey:{//左移一个单位
             if ([self canMoveLeft]) {
@@ -152,17 +211,32 @@
             }
             break;
         }
-        case NSDownArrowFunctionKey:{
-            if([self canMoveDown]){
-                self.y--;
-            }else{
-                [self addSharpToDatabase];
-            }
-            self.needsDisplay=YES;
-            break;
-        }
+//        case NSDownArrowFunctionKey:{
+//            self.speedup=YES;
+//            break;
+//        }
         default:
             break;
+    }
+}
+
+-(void)sharpMoveDown{
+    [self sharpMoveDownSingle];
+}
+
+-(void)sharpMoveDownSingle{
+    if([self canMoveDown]){
+        self.y--;
+    }else{
+        [self addSharpToDatabase];
+    }
+    self.needsDisplay=YES;
+}
+
+-(void)blockMoveLeft{
+    if ([self canMoveLeft]) {
+        self.x--;
+        self.needsDisplay=YES;
     }
 }
 
@@ -183,6 +257,13 @@
         return isCanMove;
     }
     return NO;
+}
+
+-(void)blockMoveRight{
+    if ([self canMoveRight]) {
+        self.x++;
+        self.needsDisplay=YES;
+    }
 }
 
 -(BOOL)canMoveRight{
@@ -264,7 +345,7 @@
     }
     [self eliminate];
     if (self->database[self->yMax]!=0x0) {
-        NSLog(@"timer should stop");
+//        NSLog(@"timer should stop");
         self->isRunning=NO;
     }else{
         [self newSharp];

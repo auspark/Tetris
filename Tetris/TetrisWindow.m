@@ -17,16 +17,18 @@
 -(void)keyDown:(NSEvent *)event{
     NSString *fcstr = event.charactersIgnoringModifiers;
     if ([fcstr characterAtIndex:0] == NSLeftArrowFunctionKey) {
-        [(BackgroundView *)self.contentView executeKeyEventCode:NSLeftArrowFunctionKey];
+        [(BackgroundView *)self.contentView setIsLeftDown:YES];
+//        [(BackgroundView *)self.contentView executeKeyDownEventCode:NSLeftArrowFunctionKey];
     }
     else if ([fcstr characterAtIndex:0] == NSRightArrowFunctionKey) {
-    [(BackgroundView *)self.contentView executeKeyEventCode:NSRightArrowFunctionKey];
+        [(BackgroundView *)self.contentView setIsRightDown:YES];
+//        [(BackgroundView *)self.contentView executeKeyDownEventCode:NSRightArrowFunctionKey];
     }
     else if ([fcstr characterAtIndex:0] == NSUpArrowFunctionKey) {
-    [(BackgroundView *)self.contentView executeKeyEventCode:NSUpArrowFunctionKey];
+        [(BackgroundView *)self.contentView executeKeyDownEventCode:NSUpArrowFunctionKey];
     }
     else if ([fcstr characterAtIndex:0] == NSDownArrowFunctionKey) {
-    [(BackgroundView *)self.contentView executeKeyEventCode:NSDownArrowFunctionKey];
+        [(BackgroundView *)self.contentView setSpeedup:YES];
     }
     else if ([fcstr characterAtIndex:0] == ' '){
 //        [(BackgroundView *)self.contentView newSharp];
@@ -34,6 +36,19 @@
     }
     else{
         [super keyDown:event];
+    }
+}
+
+-(void)keyUp:(NSEvent *)event{
+    NSString *fcstr = event.charactersIgnoringModifiers;
+    if ([fcstr characterAtIndex:0] == NSDownArrowFunctionKey) {
+        [(BackgroundView *)self.contentView setSpeedup:NO];
+    }
+    else if ([fcstr characterAtIndex:0] == NSLeftArrowFunctionKey){
+        [(BackgroundView *)self.contentView setIsLeftDown:NO];
+    }
+    else if ([fcstr characterAtIndex:0] == NSRightArrowFunctionKey){
+        [(BackgroundView *)self.contentView setIsRightDown:NO];
     }
 }
 
