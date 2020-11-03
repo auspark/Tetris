@@ -20,6 +20,7 @@
     NSTimer *mytimer;
     NSTimer *leftTimer;
     NSTimer *rightTimer;
+    short level;
     
 }
 @end
@@ -39,6 +40,14 @@
     [self newSharp];
     self.timeInterval=0.4;
     [self startGame:0.4];
+    self->level=1;
+    [self randomBase];
+}
+
+-(void)randomBase{
+    for (short i =0;i<self->level;i++){
+        database[i]=arc4random()%0x000fffff;
+    }
 }
 
 -(void)setIsLeftDown:(BOOL)isLeftDown{
@@ -140,6 +149,19 @@
     }
 }
 
+-(void)upgradeLevel{
+    self->level++;
+    [self newSharp];
+    for (int i=0; i<=self->yMax; i++) {
+        self->database[i]=0x0;
+    }
+    [self randomBase];
+    if (!self->isRunning) {
+        self->isRunning=YES;
+        [self startGame:0.4];
+    }
+}
+
 -(void)drawGrid{
     NSBezierPath *path=[NSBezierPath bezierPath];
     //draw x line
@@ -179,7 +201,7 @@
         for (short j=self->xMax; j>=0; j--) {
             if (rowData & 1<<j) {
                 short xIdx = self->xMax-j;
-                [[NSColor blackColor]set];
+                [[NSColor darkGrayColor]set];
                 NSRectFill(NSMakeRect(xIdx*SquareSize+SpaceSize, i*SquareSize+SpaceSize, SquareSize-2*SpaceSize, SquareSize-2*SpaceSize));
             }
         }
@@ -386,6 +408,9 @@
     //计分奖励:一次性消除3行,奖励1行的成绩,4行奖励2行的成绩
     if (c>2) {
         self.score.integerValue+=(c-2)*(self->xMax+1);
+    }
+    if (self.score.integerValue>self->level*1000) {
+        [self upgradeLevel];
     }
 }
 
