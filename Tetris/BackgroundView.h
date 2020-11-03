@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) BOOL isLeftDown;
 @property(nonatomic) BOOL isRightDown;
 
+@property(nonatomic) short level;
+@property(nonatomic) NSTextField *gameLevel;
 @end
 
 NS_ASSUME_NONNULL_END

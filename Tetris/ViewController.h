@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "BackgroundView.h"
 @interface ViewController : NSViewController
+@property (strong) IBOutlet NSTextField *levelTextField;
 
 
 @end

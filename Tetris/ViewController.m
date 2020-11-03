@@ -14,6 +14,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    [self test];
+    [(BackgroundView *)self.view setGameLevel:self.levelTextField];
+    [[(BackgroundView *)self.view gameLevel] setIntegerValue:1];
 }
 
 

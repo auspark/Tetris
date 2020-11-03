@@ -20,8 +20,6 @@
     NSTimer *mytimer;
     NSTimer *leftTimer;
     NSTimer *rightTimer;
-    short level;
-    
 }
 @end
 
@@ -40,15 +38,12 @@
     [self newSharp];
     self.timeInterval=0.4;
     [self startGame:0.4];
-    self->level=1;
+    self.level=1;
     [self randomBase];
+    self.gameLevel.integerValue=1;
 }
 
--(void)randomBase{
-    for (short i =0;i<self->level;i++){
-        database[i]=arc4random()%0x000fffff;
-    }
-}
+
 
 -(void)setIsLeftDown:(BOOL)isLeftDown{
     if (isLeftDown) {
@@ -81,12 +76,22 @@
 
 -(void)viewDidMoveToWindow{
     for (NSView *v in self.subviews) {
+        NSLog(@"%@",v.identifier);
         if ([[v identifier] isEqualToString:@"Score"]) {
             self.score=(NSTextField *)v;
             self.score.integerValue=0;
             break;
         }
+        else if ([[v identifier] isEqualToString:@"IDLevel"]){
+            self.gameLevel=(NSTextField *)v;
+            self.gameLevel.integerValue=1;
+        }
     }
+}
+
+-(void)setLevel:(short)level{
+    _level=level;
+    self.gameLevel.integerValue=(NSInteger)level;
 }
 
 -(void)startMoveLeft:(NSTimeInterval)timerInterval{
@@ -138,19 +143,8 @@
 }
 
 -(void)newGame{
+    self.level=1;
     self.score.integerValue=0;
-    [self newSharp];
-    for (int i=0; i<=self->yMax; i++) {
-        self->database[i]=0x0;
-    }
-    if (!self->isRunning) {
-        self->isRunning=YES;
-        [self startGame:0.4];
-    }
-}
-
--(void)upgradeLevel{
-    self->level++;
     [self newSharp];
     for (int i=0; i<=self->yMax; i++) {
         self->database[i]=0x0;
@@ -162,6 +156,41 @@
     }
 }
 
+-(void)randomBase{
+    if(self.level<13){
+        for (short i =0;i<self.level;i++){
+            database[i]=arc4random()%0x000fffff;
+        }
+    }
+}
+
+-(void)upgradeLevel{
+    if(self.level<12){
+        self.level++;
+        [self newSharp];
+        for (int i=0; i<=self->yMax; i++) {
+            self->database[i]=0x0;
+        }
+        [self randomBase];
+        if (!self->isRunning) {
+            self->isRunning=YES;
+            [self startGame:0.4];
+        }
+    }else{
+        [self->mytimer invalidate];
+        [self showAlertView:@"💐恭喜通关成功!!💐"];
+    }
+}
+-(void)showAlertView:(NSString *)information{
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = @"✌️✌️✌️";
+    [alert setShowsHelp:NO];
+    NSString* name = [NSString stringWithFormat:@"%@",information];
+    alert.informativeText = name;
+    alert.alertStyle = NSAlertStyleWarning;
+    [alert addButtonWithTitle:@"Ok"];
+    [alert runModal];
+}
 -(void)drawGrid{
     NSBezierPath *path=[NSBezierPath bezierPath];
     //draw x line
@@ -409,7 +438,7 @@
     if (c>2) {
         self.score.integerValue+=(c-2)*(self->xMax+1);
     }
-    if (self.score.integerValue>self->level*1000) {
+    if (self.score.integerValue>self.level*1000) {
         [self upgradeLevel];
     }
 }
