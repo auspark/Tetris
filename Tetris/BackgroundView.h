@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define TimerInterval 0.5
-
+#define MaxLevel 16
 @interface BackgroundView : NSView
 -(void)executeKeyDownEventCode:(unsigned short)event;
 @property(nonatomic) unsigned short x,y;

@@ -20,6 +20,7 @@
     NSTimer *mytimer;
     NSTimer *leftTimer;
     NSTimer *rightTimer;
+    NSDictionary *config;
 }
 @end
 
@@ -27,6 +28,9 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    self->config=[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:@"Config.plist"]];
+//    NSLog(@"%lu",[self->config[@"Step"] integerValue]);
+//    NSLog(@"%lu",[self->config[@"MaxLevel"] integerValue]);
     self.isLeftDown=NO;
     self.isRightDown=NO;
     self->isRunning=YES;
@@ -76,7 +80,7 @@
 
 -(void)viewDidMoveToWindow{
     for (NSView *v in self.subviews) {
-        NSLog(@"%@",v.identifier);
+//        NSLog(@"%@",v.identifier);
         if ([[v identifier] isEqualToString:@"Score"]) {
             self.score=(NSTextField *)v;
             self.score.integerValue=0;
@@ -157,7 +161,7 @@
 }
 
 -(void)randomBase{
-    if(self.level<13){
+    if(self.level<[self->config[@"MaxLevel"] integerValue]){
         for (short i =0;i<self.level;i++){
             database[i]=arc4random()%0x000fffff;
         }
@@ -165,7 +169,7 @@
 }
 
 -(void)upgradeLevel{
-    if(self.level<12){
+    if(self.level<[self->config[@"MaxLevel"] integerValue]-1){
         self.level++;
         [self newSharp];
         for (int i=0; i<=self->yMax; i++) {
@@ -438,7 +442,7 @@
     if (c>2) {
         self.score.integerValue+=(c-2)*(self->xMax+1);
     }
-    if (self.score.integerValue>self.level*1000) {
+    if (self.score.integerValue>=self.level*[self->config[@"Step"] integerValue]) {
         [self upgradeLevel];
     }
 }

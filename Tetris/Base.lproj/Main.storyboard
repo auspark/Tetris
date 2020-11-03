@@ -749,7 +749,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField identifier="IDLevel" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7F-LQ-nFx">
-                                <rect key="frame" x="338" y="469" width="44" height="16"/>
+                                <rect key="frame" x="339" y="469" width="44" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="HiS-80-qtP">
                                     <font key="font" metaFont="system"/>
@@ -765,7 +765,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="744"/>
+            <point key="canvasLocation" x="75" y="847"/>
         </scene>
     </scenes>
 </document>
